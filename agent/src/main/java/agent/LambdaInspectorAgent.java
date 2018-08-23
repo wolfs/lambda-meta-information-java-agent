@@ -79,51 +79,6 @@ public class LambdaInspectorAgent {
                                             "jdk/internal/org/objectweb/asm/AnnotationVisitor", "visit",
                                             "(Ljava/lang/String;Ljava/lang/Object;)V", false);
 
-                                    // set desc
-                                    mv.visitInsn(Opcodes.DUP);
-                                    mv.visitLdcInsn("implMethodDesc");
-                                    mv.visitVarInsn(Opcodes.ALOAD, 0);
-                                    mv.visitFieldInsn(Opcodes.GETFIELD, "java/lang/invoke/InnerClassLambdaMetafactory",
-                                            "implMethodDesc", "Ljava/lang/String;");
-                                    mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,
-                                            "jdk/internal/org/objectweb/asm/AnnotationVisitor", "visit",
-                                            "(Ljava/lang/String;Ljava/lang/Object;)V", false);
-
-                                    // set SAM class
-                                    mv.visitInsn(Opcodes.DUP);
-                                    mv.visitLdcInsn("samClass");
-                                    mv.visitVarInsn(Opcodes.ALOAD, 0);
-                                    mv.visitFieldInsn(Opcodes.GETFIELD, "java/lang/invoke/InnerClassLambdaMetafactory",
-                                            "samBase", "Ljava/lang/Class;");
-                                    mv.visitMethodInsn(Opcodes.INVOKESTATIC, "jdk/internal/org/objectweb/asm/Type",
-                                            "getType", "(Ljava/lang/Class;)Ljdk/internal/org/objectweb/asm/Type;",
-                                            false);
-                                    mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,
-                                            "jdk/internal/org/objectweb/asm/AnnotationVisitor", "visit",
-                                            "(Ljava/lang/String;Ljava/lang/Object;)V", false);
-
-                                    // set SAM method name
-                                    mv.visitInsn(Opcodes.DUP);
-                                    mv.visitLdcInsn("samMethodName");
-                                    mv.visitVarInsn(Opcodes.ALOAD, 0);
-                                    mv.visitFieldInsn(Opcodes.GETFIELD, "java/lang/invoke/InnerClassLambdaMetafactory",
-                                            "samMethodName", "Ljava/lang/String;");
-                                    mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,
-                                            "jdk/internal/org/objectweb/asm/AnnotationVisitor", "visit",
-                                            "(Ljava/lang/String;Ljava/lang/Object;)V", false);
-
-                                    // set SAM descriptor
-                                    mv.visitInsn(Opcodes.DUP);
-                                    mv.visitLdcInsn("samMethodDesc");
-                                    mv.visitVarInsn(Opcodes.ALOAD, 0);
-                                    mv.visitFieldInsn(Opcodes.GETFIELD, "java/lang/invoke/InnerClassLambdaMetafactory",
-                                            "samMethodType", "Ljava/lang/invoke/MethodType;");
-                                    mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/invoke/MethodType",
-                                            "toMethodDescriptorString", "()Ljava/lang/String;", false);
-                                    mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL,
-                                            "jdk/internal/org/objectweb/asm/AnnotationVisitor", "visit",
-                                            "(Ljava/lang/String;Ljava/lang/Object;)V", false);
-
                                 }
                             }
                         };

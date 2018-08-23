@@ -22,24 +22,4 @@ public @interface LambdaInformation {
      * Name of the implementation method
      */
     String implMethodName();
-
-    /**
-     * Descriptor of the implementation method
-     */
-    String implMethodDesc();
-
-    /**
-     * Class declaring the single abstract method implemented by the lambda
-     */
-    Class<?> samClass();
-
-    /**
-     * Name of the single abstract method in the interface of the lambda
-     */
-    String samMethodName();
-
-    /**
-     * Descriptor of the single abstact method in the interface of the lambda
-     */
-    String samMethodDesc();
 }
