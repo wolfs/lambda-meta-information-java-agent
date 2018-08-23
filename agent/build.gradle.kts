@@ -16,5 +16,4 @@ jar.configure {
 
 dependencies {
     compileOnly("org.ow2.asm:asm:6.2.1")
-    compileOnly("org.ow2.asm:asm-analysis:6.2.1")
 }

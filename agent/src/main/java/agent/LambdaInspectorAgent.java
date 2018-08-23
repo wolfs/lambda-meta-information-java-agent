@@ -1,17 +1,13 @@
 package agent;
 
-import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
 
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
-import java.lang.invoke.MethodType;
 import java.security.ProtectionDomain;
 
 public class LambdaInspectorAgent {
@@ -31,15 +27,15 @@ public class LambdaInspectorAgent {
     private static final class InnerClassLambdaMetafactoryTransformer implements ClassFileTransformer {
         @Override
         public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
-                                ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
+                                ProtectionDomain protectionDomain, byte[] classfileBuffer) {
             if (className.equals("java/lang/invoke/InnerClassLambdaMetafactory")) {
                 ClassReader cr = new ClassReader(classfileBuffer);
                 ClassWriter cw = new ClassWriter(cr, 0);
-                cr.accept(new ClassVisitor(Opcodes.ASM5, cw) {
+                cr.accept(new ClassVisitor(Opcodes.ASM6, cw) {
                     @Override
                     public MethodVisitor visitMethod(int access, String name, String desc, String signature,
                                                      String[] exceptions) {
-                        return new MethodVisitor(Opcodes.ASM5,
+                        return new MethodVisitor(Opcodes.ASM6,
                                 super.visitMethod(access, name, desc, signature, exceptions)) {
                             @Override
                             public void visitMethodInsn(int opcode, String owner, String name, String desc,
@@ -138,18 +134,18 @@ public class LambdaInspectorAgent {
             return null;
         }
     }
-
-    ClassWriter cw;
-
-    Class<?> samBase;
-    MethodType samMethodType;
-
-    void foo() {
-        samMethodType.toMethodDescriptorString();
-        {
-            AnnotationVisitor av0 = cw.visitAnnotation("Lcom/github/ruediste/lambdaInspector/agent.LambdaInformation;", true);
-            av0.visit("value", Type.getType(samBase));
-            av0.visitEnd();
-        }
-    }
+//
+//    ClassWriter cw;
+//
+//    Class<?> samBase;
+//    MethodType samMethodType;
+//
+//    void foo() {
+//        samMethodType.toMethodDescriptorString();
+//        {
+//            AnnotationVisitor av0 = cw.visitAnnotation("Lcom/github/ruediste/lambdaInspector/agent.LambdaInformation;", true);
+//            av0.visit("value", Type.getType(samBase));
+//            av0.visitEnd();
+//        }
+//    }
 }

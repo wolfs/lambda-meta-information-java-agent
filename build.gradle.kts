@@ -1,5 +1,3 @@
-import com.gradle.scan.plugin.BuildScanExtension
-
 plugins {
     id("com.gradle.build-scan").version("1.16")
 }
@@ -17,12 +15,6 @@ subprojects {
     }
 }
 
-//the<BuildScanExtension>().apply {
-//    setServer("https://e.grdev.net")
-//    publishAlways()
-//}
-
 buildScan {
-    setServer("https://e.grdev.net")
     publishAlways()
 }
